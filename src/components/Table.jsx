@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class Table extends Component {
   render() {
     const {
-      wallet: {
+      dispatch, wallet: {
         expenses,
       },
     } = this.props;
@@ -56,6 +57,7 @@ class Table extends Component {
                       <button
                         data-testid="delete-btn"
                         type="button"
+                        onClick={ () => dispatch(removeExpense(id)) }
                       >
                         Excluir
                       </button>

@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES,
   ADD_EXPENSE,
   UPDATE_TOTAL,
+  REMOVE_EXPENSE,
 } from '../actions/index';
 
 export const INITIAL_STATE = {
@@ -43,6 +44,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         { ...action.payload, id: state.nextExpenseId },
       ],
       nextExpenseId: state.nextExpenseId + 1,
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
     };
   case UPDATE_TOTAL:
     return {

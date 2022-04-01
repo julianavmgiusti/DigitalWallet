@@ -3,6 +3,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const LOGIN = (email) => ({
   type: USER_EMAIL,
@@ -37,5 +38,10 @@ export const addExpense = (payload) => async (dispatch) => {
       exchangeRates: await fetchExchangeRates(),
     },
   });
+  dispatch(updateTotal());
+};
+
+export const removeExpense = (id) => (dispatch) => {
+  dispatch({ type: REMOVE_EXPENSE, id });
   dispatch(updateTotal());
 };
