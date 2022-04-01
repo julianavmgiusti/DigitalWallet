@@ -4,6 +4,8 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const EDIT = 'EDIT';
+export const EDITING = 'EDITING';
 
 export const LOGIN = (email) => ({
   type: USER_EMAIL,
@@ -45,3 +47,12 @@ export const removeExpense = (id) => (dispatch) => {
   dispatch({ type: REMOVE_EXPENSE, id });
   dispatch(updateTotal());
 };
+export const editExpense = (id) => ({
+  type: EDIT,
+  payload: id,
+});
+
+export const editing = (expense) => ({
+  type: EDITING,
+  payload: expense,
+});

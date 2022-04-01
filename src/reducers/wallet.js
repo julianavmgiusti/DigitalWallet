@@ -4,6 +4,7 @@ import {
   ADD_EXPENSE,
   UPDATE_TOTAL,
   REMOVE_EXPENSE,
+  EDIT, EDITING,
 } from '../actions/index';
 
 export const INITIAL_STATE = {
@@ -54,6 +55,18 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       totalExpenses: calculateTotal(state.expenses),
+    };
+  case EDIT:
+    return { ...state, isEditing: true, idToEdit: action.payload };
+  case EDITING:
+    return { ...state,
+      isEditing: false,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === state.idToEdit) {
+          return { ...action.payload, exchangeRates: expense.exchangeRates };
+        }
+        return expense;
+      }),
     };
   default:
     return state;

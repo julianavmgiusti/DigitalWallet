@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addExpense, fetchCurrencies } from '../actions';
+import { addExpense, fetchCurrencies, editing, editExpense } from '../actions';
 import InputSelect from './InputSelect';
 import { WALLET_INITIAL_STATE } from '../reducers/wallet';
 
@@ -33,8 +33,24 @@ class ExpensesForm extends Component {
       });
     };
 
+    handleEdit = (e) => {
+      const { idToEdit, updateItemExpense } = this.props;
+      const { value, description, currency, method, tag } = this.state;
+
+      e.preventDefault();
+      const expenseUpdated = {
+        id: idToEdit,
+        description,
+        value,
+        currency,
+        method,
+        tag,
+      };
+      updateItemExpense(expenseUpdated);
+    }
+
     render() {
-      const { currencies } = this.props;
+      const { currencies, isEditing } = this.props;
       const { value, description, currency, method, tag } = this.state;
 
       const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -42,7 +58,7 @@ class ExpensesForm extends Component {
       return (
         <form
           type="submit"
-          onSubmit={ this.submitExpense }
+          onSubmit={ isEditing ? this.handleEdit : this.submitExpense }
         >
           <InputSelect
             name="value"
@@ -90,7 +106,7 @@ class ExpensesForm extends Component {
           />
           <input
             type="submit"
-            value="Adicionar despesa"
+            value={ isEditing ? 'Editar despesa' : 'Adicionar despesa' }
           />
 
         </form>
@@ -100,17 +116,24 @@ class ExpensesForm extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  isEditing: state.wallet.isEditing,
+  idToEdit: state.wallet.idToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(fetchCurrencies()),
   setNewExpense: (expense) => dispatch(addExpense(expense)),
+  changeExpense: (id) => dispatch(editExpense(id)),
+  updateItemExpense: (expense) => dispatch(editing(expense)),
 });
 
 ExpensesForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   setCurrencies: PropTypes.func.isRequired,
   setNewExpense: PropTypes.bool.isRequired,
+  idToEdit: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  updateItemExpense: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
