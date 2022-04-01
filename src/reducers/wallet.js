@@ -2,6 +2,7 @@
 import {
   GET_CURRENCIES,
   ADD_EXPENSE,
+  UPDATE_TOTAL,
 } from '../actions/index';
 
 export const INITIAL_STATE = {
@@ -23,6 +24,12 @@ export const WALLET_INITIAL_STATE = {
   id: 0,
 };
 
+const calculateTotal = (expenses) => expenses.reduce(
+  (total, { value, currency, exchangeRates }) => (
+    total + (Number(value) * Number(exchangeRates[currency].ask))
+  ), 0,
+);
+
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_CURRENCIES:
@@ -36,6 +43,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         { ...action.payload, id: state.nextExpenseId },
       ],
       nextExpenseId: state.nextExpenseId + 1,
+    };
+  case UPDATE_TOTAL:
+    return {
+      ...state,
+      totalExpenses: calculateTotal(state.expenses),
     };
   default:
     return state;

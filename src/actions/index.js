@@ -2,6 +2,7 @@
 export const USER_EMAIL = 'USER_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 
 export const LOGIN = (email) => ({
   type: USER_EMAIL,
@@ -26,6 +27,8 @@ const fetchExchangeRates = async () => {
   return response.json();
 };
 
+const updateTotal = () => ({ type: UPDATE_TOTAL });
+
 export const addExpense = (payload) => async (dispatch) => {
   dispatch({
     type: ADD_EXPENSE,
@@ -34,4 +37,5 @@ export const addExpense = (payload) => async (dispatch) => {
       exchangeRates: await fetchExchangeRates(),
     },
   });
+  dispatch(updateTotal());
 };
