@@ -16,7 +16,7 @@ class Header extends React.Component {
     return (
       <div className="cabecalho">
         <header>
-          <h1>TrybeWallet</h1>
+          <h1>DigitalWallet</h1>
           <h1 data-testid="email-field">{email}</h1>
           <h1
             data-testid="total-field"
