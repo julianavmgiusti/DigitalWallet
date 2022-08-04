@@ -18,7 +18,7 @@ Neste projeto, foram realizadas as seguintes ações:
 
 ## O que foi desenvolvido
 
-Neste projeto você vai desenvolver uma carteira de controle de gastos com conversor de moedas, ao utilizar essa aplicação um usuário deverá ser capaz de:
+Neste projeto foi desenvolvido uma carteira de controle de gastos com conversor de moedas, ao utilizar essa aplicação um usuário deverá ser capaz de:
 
 - Adicionar, remover e editar um gasto;
 - Visualizar uma tabelas com seus gastos;
@@ -26,7 +26,7 @@ Neste projeto você vai desenvolver uma carteira de controle de gastos com conve
 
 ## Desenvolvimento
 
-Desenvolver uma aplicação em React que use Redux como ferramenta de manipulação de estado.
+Aplicação em React que use Redux como ferramenta de manipulação de estado.
 
 Através dessa aplicação, será possível realizar as operações básicas de criação e manipulação de um estado de redux.
 
